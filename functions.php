@@ -9,11 +9,17 @@ function query($query) {
     return mysqli_query($conn, $query);
 }
 
-// fetch data
-function fetch($query)
+// fetch data all
+function fetchAll($query)
 {
     $result = query($query);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+// fetch data
+function fetch($query)
+{
+    return mysqli_fetch_assoc(query($query));
 }
 
 // Insert Data
@@ -41,5 +47,21 @@ function insert($data)
 function destroy($id)
 {
     $query = "DELETE FROM mahasiswa WHERE id=$id";
+    return query($query);
+}
+
+function update($id, $data)
+{
+    $id = $id;
+    $nama = htmlspecialchars($data['nama']);
+    $npm = htmlspecialchars($data['npm']);
+    $email = htmlspecialchars($data['email']);
+    $jurusan = htmlspecialchars($data['jurusan']);
+    $gambar = htmlspecialchars($data['gambar']);
+
+    $query = "UPDATE mahasiswa 
+            SET nama='$nama', npm='$npm', email='$email', jurusan='$jurusan', gambar='$gambar'
+            WHERE id=$id";
+
     return query($query);
 }

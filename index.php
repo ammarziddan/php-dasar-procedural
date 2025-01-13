@@ -2,7 +2,7 @@
 
 require 'functions.php';
 
-$mahasiswa = fetch('SELECT * FROM mahasiswa');
+$mahasiswa = fetchAll('SELECT * FROM mahasiswa');
 
 ?>
 
@@ -36,7 +36,7 @@ $mahasiswa = fetch('SELECT * FROM mahasiswa');
             <tr>
                 <td><?= $i ?></td>
                 <td>
-                    <a href="">edit</a> |
+                    <a href="update.php?id=<?= $mhs['id'] ?>">edit</a> |
                     <a href="delete.php?id=<?= $mhs['id'] ?>" onclick="return confirm('yakin ingin menghapus data <?= $mhs['nama'] ?>?')">hapus</a>
                 </td>
                 <td><img src="img/<?= $mhs['gambar'] ?>" alt="<?= $mhs['gambar'] ?>" width="80"></td>

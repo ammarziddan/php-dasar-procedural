@@ -2,7 +2,13 @@
 
 require 'functions.php';
 
-$mahasiswa = fetchAll('SELECT * FROM mahasiswa');
+$keyword = "SELECT * FROM mahasiswa";
+
+if (isset($_POST['search'])) {
+    $keyword = search($_POST['keyword']);
+}
+
+$mahasiswa = fetchAll($keyword);
 
 ?>
 
@@ -20,6 +26,13 @@ $mahasiswa = fetchAll('SELECT * FROM mahasiswa');
     <h1>Daftar Mahasiswa</h1>
 
     <a href="insert.php">Tambah Data Mahasiswa</a>
+    <br><br>
+
+    <form action="" method="post">
+        <input type="text" name="keyword" size="45" placeholder="search data..." autofocus>
+        <button type="submit" name="search">Search</button>
+    </form>
+    <br>
 
     <table border="1" cellpadding="10" cellspacing="0">
         <tr>

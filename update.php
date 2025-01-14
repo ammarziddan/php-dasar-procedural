@@ -6,8 +6,6 @@ $id = $_GET['id'];
 // fetch data berdasarkan $_GET['id']
 $mhs = fetch("SELECT * FROM mahasiswa WHERE id=$id");
 
-var_dump($mhs);
-
 if (isset($_POST['submit'])) {
     if (update($id, $_POST)) {
         echo "

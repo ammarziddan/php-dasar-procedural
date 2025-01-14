@@ -22,6 +22,18 @@ function fetch($query)
     return mysqli_fetch_assoc(query($query));
 }
 
+// Search data
+function search($keyword)
+{
+    return "SELECT * FROM mahasiswa 
+            WHERE
+            nama LIKE '%$keyword%'OR
+            npm LIKE '%$keyword%' OR
+            email LIKE '%$keyword%' OR
+            jurusan LIKE '%$keyword%'
+    ";
+}
+
 // Insert Data
 function insert($data)
 {

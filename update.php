@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
     <h1>Edit Data Mahasiswa</h1>
 
     <!-- TODO: Tambahkan csrf token (manual) -->
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <ul>
             <li>
                 <label for="npm">NPM</label>
@@ -60,8 +60,14 @@ if (isset($_POST['submit'])) {
                 <input type="text" name="jurusan" id="jurusan" required value='<?= $mhs['jurusan'] ?>'>
             </li>
             <li>
+                <!-- Gambar lama -->
+                <input type="hidden" name="oldImg" value="<?= $mhs['gambar'] ?>">
+
                 <label for="gambar">Gambar</label>
-                <input type="text" name="gambar" id="gambar" value='<?= $mhs['gambar'] ?>'>
+                <br>
+                <img src="img/<?= $mhs['gambar'] ?>" alt="<?= $mhs['nama'] ?>" width="100">
+                <br>
+                <input type="file" name="gambar" id="gambar">
             </li>
             <li>
                 <button type="submit" name="submit">Ubah data</button>

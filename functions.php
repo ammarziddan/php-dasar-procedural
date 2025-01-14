@@ -34,6 +34,55 @@ function search($keyword)
     ";
 }
 
+// upload file gambar
+function upload()
+{
+    $fileName = $_FILES['gambar']['name'];
+    $size = $_FILES['gambar']['size'];
+    $error = $_FILES['gambar']['error'];
+    $tmpName = $_FILES['gambar']['tmp_name'];
+    $type = $_FILES['gambar']['type'];
+
+    // cek apakah tidak ada gambar yang diupload
+    if ($error === 4) {
+        echo "
+            <script>
+                alert('Pilih gambar terlebih dahulu');
+            </script>
+        ";
+        return false;
+    }
+
+    // cek apakah file yang diupload merupakan gambar
+    $validImg = ['jpeg', 'jpg', 'png'];
+    $extension = strtolower(array_reverse(explode('/', $type))[0]);
+    if (!in_array($extension, $validImg)) {
+        echo "
+            <script>
+                alert('Upload file gambar');
+            </script>
+        ";
+        return false;
+    }
+
+    // cek ukuran file tidak melebihi 2048mb
+    if ($size > 2048000) {
+        echo "
+            <script>
+                alert('Ukuran file terlalu besar');
+            </script>
+        ";
+        return false;
+    }
+
+    $newFileName = bin2hex(random_bytes(16)) . '.' . $extension;
+
+    // upload file ke direktori
+    move_uploaded_file($tmpName, 'img/' . $newFileName);
+
+    return $newFileName;
+}
+
 // Insert Data
 function insert($data)
 {
@@ -44,7 +93,12 @@ function insert($data)
     $nama = htmlspecialchars($data['nama']);
     $email = htmlspecialchars($data['email']);
     $jurusan = htmlspecialchars($data['jurusan']);
-    $gambar = htmlspecialchars($data['gambar']);
+
+    // ambil file gambar
+    $gambar = upload();
+    if (!$gambar) {
+        return false;
+    } 
 
     // query insert data
     $query = "INSERT INTO mahasiswa 
@@ -64,12 +118,19 @@ function destroy($id)
 
 function update($id, $data)
 {
+    // TODO: jika gambar diganti, hapus file gambar yang lama
     $id = $id;
     $nama = htmlspecialchars($data['nama']);
     $npm = htmlspecialchars($data['npm']);
     $email = htmlspecialchars($data['email']);
     $jurusan = htmlspecialchars($data['jurusan']);
-    $gambar = htmlspecialchars($data['gambar']);
+    $gambar = htmlspecialchars($data['oldImg']);
+
+    // cek apakah ada gambar baru
+    if ($_FILES['gambar']['error'] === 0) {
+        $gambar = upload();
+    }
+
 
     $query = "UPDATE mahasiswa 
             SET nama='$nama', npm='$npm', email='$email', jurusan='$jurusan', gambar='$gambar'

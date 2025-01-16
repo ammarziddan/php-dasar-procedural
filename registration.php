@@ -12,12 +12,11 @@ if (isset($_POST['register'])) {
             
         ";
     } else {
-        // echo "
-        //     <script>
-        //     alert('Registrasi gagal!');
-        //     </script>
-        // ";
-        echo mysqli_error($conn);
+        echo "
+            <script>
+            alert('Registrasi gagal!');
+            </script>
+        ";
     }
 }
 

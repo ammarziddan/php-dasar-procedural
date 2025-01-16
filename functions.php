@@ -173,3 +173,24 @@ function register($data)
 
     return query($query);
 }
+
+function login($data)
+{
+    $username = $data['username'];
+    $password = $data['password'];
+
+    $query = "SELECT * FROM users WHERE username = '$username'";
+
+    // cek username
+    if (mysqli_num_rows(query($query)) === 1) {
+
+        // cek password
+        $row = mysqli_fetch_assoc(query($query));
+        if (password_verify($password, $row['password'])) {
+            header('Location: index.php');
+            exit;
+        }
+    }
+
+    return false;
+}

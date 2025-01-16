@@ -2,24 +2,11 @@
 
 require 'functions.php';
 
-if (isset($_POST['register'])) {
-    // TODO: tampilkan pesan error
-    if (register($_POST)) {
-        echo "
-            <script>
-            alert('Registrasi berhasil!');
-            </script>
-            
-        ";
-    } else {
-        echo "
-            <script>
-            alert('Registrasi gagal!');
-            </script>
-        ";
-    }
+if (isset($_POST['login'])) {
+    if (!login($_POST)) {
+        $error = true;
+    };
 }
-
 
 ?>
 
@@ -29,7 +16,7 @@ if (isset($_POST['register'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
+    <title>Login</title>
 
     <style>
         label {
@@ -41,7 +28,11 @@ if (isset($_POST['register'])) {
 <body>
     <!-- TODO: Redesign UI -->
     <h1>Halaman Registrasi</h1>
-    <!-- TODO: tambahkan email verification -->
+
+    <?php if (isset($error)) : ?>
+        <p style="color: red; font-style:italic">Username atau password salah.</p>
+    <?php endif ?>
+
     <form action="" method="post">
         <ul>
             <li>
@@ -53,11 +44,7 @@ if (isset($_POST['register'])) {
                 <input type="password" id="password" name="password" required>
             </li>
             <li>
-                <label for="confirmPass">Confirm Your Password</label>
-                <input type="password" id="confirmPass" name="confirmPass" required>
-            </li>
-            <li>
-                <button type="submit" name="register">Register</button>
+                <button type="submit" name="login">Login</button>
             </li>
         </ul>
     </form>

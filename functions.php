@@ -136,3 +136,40 @@ function update($id, $data)
 
     return query($query);
 }
+
+function register($data)
+{
+    global $conn;
+
+    $username = strtolower(stripslashes($data['username']));
+    $password = mysqli_real_escape_string($conn, $data['password']);
+    $password2 = mysqli_real_escape_string($conn, $data['confirmPass']);
+
+    // cek apakah username sudah ada
+    $query = "SELECT username FROM users WHERE username='$username'";
+    if (fetch($query)) {
+        echo "
+            <script>
+            alert('Username sudah ada!');
+            </script>
+        ";
+        return false;
+    };
+
+    // konfirmasi password
+    if ($password !== $password2) {
+        echo "
+            <script>
+            alert('Konfirmasi password gagal!');
+            </script>
+        ";
+        return false;
+    }
+
+    // password encryption
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    $query = "INSERT INTO users VALUES ('', '$username', '$password')";
+
+    return query($query);
+}

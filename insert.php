@@ -8,6 +8,7 @@ if (isset($_POST['submit'])) {
     // die;
 
     if (insert($_POST)) {
+        // TODO: tambahkan pesan error
         echo "
             <script>
             alert('Berhasil menambahkan data');
@@ -16,7 +17,6 @@ if (isset($_POST['submit'])) {
             
         ";
     } else {
-        // TODO: tambahkan pesan error
         echo "
             <script>
             alert('Gagal menambahkan data!');

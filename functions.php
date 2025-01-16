@@ -86,8 +86,6 @@ function upload()
 // Insert Data
 function insert($data)
 {
-    global $conn;
-
     // ambil semua data dari form
     $npm = htmlspecialchars($data['npm']);
     $nama = htmlspecialchars($data['nama']);

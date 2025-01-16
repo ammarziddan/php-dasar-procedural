@@ -4,6 +4,7 @@ require 'functions.php';
 $id = $_GET["id"];
 
 if (destroy($id)) {
+    // TODO: tambahkan pesan error
     echo "
         <script>
         alert('Berhasil menghapus data!');

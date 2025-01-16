@@ -8,6 +8,7 @@ $mhs = fetch("SELECT * FROM mahasiswa WHERE id=$id");
 
 if (isset($_POST['submit'])) {
     if (update($id, $_POST)) {
+        // TODO: tambahkan pesan error
         echo "
             <script>
             alert('Berhasil mengubah data');
@@ -15,7 +16,6 @@ if (isset($_POST['submit'])) {
             </script>
         ";
     } else {
-        // TODO: tambahkan pesan error
         echo "
             <script>
             alert('Gagal mengubah data!');

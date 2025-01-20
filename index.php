@@ -1,5 +1,14 @@
 <?php
 
+// jalankan session
+session_start();
+
+// cek apakah sudah login
+if (!isset($_SESSION['login'])) {
+    header('Location: login.php');
+    exit;
+}
+
 require 'functions.php';
 
 $keyword = "SELECT * FROM mahasiswa";
@@ -22,6 +31,8 @@ $mahasiswa = fetchAll($keyword);
 </head>
 
 <body>
+
+    <a href="logout.php">Logout</a>
 
     <h1>Daftar Mahasiswa</h1>
 

@@ -58,6 +58,7 @@ if (isset($_POST['register'])) {
             </li>
             <li>
                 <button type="submit" name="register">Register</button>
+                <p>sudah punya akun? klik <a href="login.php">disini</a></p>
             </li>
         </ul>
     </form>

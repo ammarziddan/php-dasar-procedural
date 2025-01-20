@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+// cek apakah sudah pernah login
+if (isset($_SESSION['login'])) {
+    header('Location: index.php');
+    exit;
+}
 
 require 'functions.php';
 
@@ -27,7 +34,8 @@ if (isset($_POST['login'])) {
 
 <body>
     <!-- TODO: Redesign UI -->
-    <h1>Halaman Registrasi</h1>
+    <h1>Halaman Login</h1>
+
 
     <?php if (isset($error)) : ?>
         <p style="color: red; font-style:italic">Username atau password salah.</p>
@@ -45,6 +53,7 @@ if (isset($_POST['login'])) {
             </li>
             <li>
                 <button type="submit" name="login">Login</button>
+                <p>belum punya akun? klik <a href="registration.php">disini</a></p>
             </li>
         </ul>
     </form>

@@ -187,6 +187,9 @@ function login($data)
         // cek password
         $row = mysqli_fetch_assoc(query($query));
         if (password_verify($password, $row['password'])) {
+            // set session
+            $_SESSION['login'] = true;
+
             header('Location: index.php');
             exit;
         }

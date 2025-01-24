@@ -1,15 +1,29 @@
 <?php
 
+require 'functions.php';
+
 // jalankan session
 session_start();
 
-// cek apakah sudah login
+// cek cookie remember beserta valuenya
+if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
+    $id = $_COOKIE['id'];
+    $key = $_COOKIE['key'];
+
+    // ambil username berdasarkan id
+    $result = fetch("SELECT username FROM users WHERE id = $id");
+
+    // cek cookie dan username
+    if ($key === hash('sha256', $result['username'])) {
+        $_SESSION['login'] = true;
+    }
+}
+
+// cek session login
 if (!isset($_SESSION['login'])) {
     header('Location: login.php');
     exit;
 }
-
-require 'functions.php';
 
 $keyword = "SELECT * FROM mahasiswa";
 

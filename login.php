@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// cek apakah sudah pernah login
+// cek apakah ada session login
 if (isset($_SESSION['login'])) {
     header('Location: index.php');
     exit;
@@ -50,6 +50,10 @@ if (isset($_POST['login'])) {
             <li>
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
+            </li>
+            <li>
+                <input type="checkbox" id="rememberMe" name="rememberMe">
+                <label for="rememberMe">Remember me</label>
             </li>
             <li>
                 <button type="submit" name="login">Login</button>

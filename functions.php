@@ -4,7 +4,8 @@
 $conn = mysqli_connect('localhost', 'root', '', 'php-dasar');
 
 // query to database
-function query($query) {
+function query($query)
+{
     global $conn;
     return mysqli_query($conn, $query);
 }
@@ -96,7 +97,7 @@ function insert($data)
     $gambar = upload();
     if (!$gambar) {
         return false;
-    } 
+    }
 
     // query insert data
     $query = "INSERT INTO mahasiswa 
@@ -189,6 +190,13 @@ function login($data)
         if (password_verify($password, $row['password'])) {
             // set session
             $_SESSION['login'] = true;
+
+            // cek rememberMe
+            // TODO: simpan cookie di database, lalu cek dari database
+            if (isset($_POST['rememberMe'])) {
+                setcookie('id', $row['id'], time() + 60);
+                setcookie('key', hash('sha256', $row['username']), time() + 60);
+            }
 
             header('Location: index.php');
             exit;

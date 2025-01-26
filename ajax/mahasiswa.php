@@ -2,13 +2,14 @@
 
 require '../functions.php';
 
-// TODO: fix pagination in live search
 $keyword = search($_GET['keyword']);
 $base_query = "SELECT * FROM mahasiswa";
-$query = $base_query . ' ' . $keyword;
+$query = $base_query . ' ' . $keyword . ' LIMIT 5';
 $mahasiswa = fetchAll($query);
 
 ?>
+<br><br><br><br>
+
 <table border="1" cellpadding="10" cellspacing="0">
     <tr>
         <th>No.</th>

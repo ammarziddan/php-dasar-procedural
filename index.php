@@ -76,34 +76,35 @@ $mahasiswa = fetchAll($keyword);
         <button type="submit" id="search-btn">Search</button>
     </form>
 
-    <!-- Clear Search button -->
-    <?php if (isset($_GET['keyword'])) : ?>
-        <br>
-        <p style="display: inline;">showing results for <i>'<?= $_GET['keyword'] ?>''</i>. </p>
-        <a href="index.php">Clear search</a>
-    <?php endif; ?>
-
-    <br><br>
-
-    <!-- Pagination -->
-    <?php if ($paginate['activePage'] > 1) : ?>
-        <a href="?<?= http_build_query($get) ?>&page=<?= $paginate['activePage'] - 1 ?>">&laquo;</a>
-    <?php endif; ?>
-
-    <?php for ($i = 1; $i <= $paginate['pageCount']; $i++) :  ?>
-        <?php if ($i == $paginate['activePage']) : ?>
-            <a href="?<?= http_build_query($get) ?>&page=<?= $i ?>"><b><?= $i ?></b></a>
-        <?php else : ?>
-            <a href="?<?= http_build_query($get) ?>&page=<?= $i ?>"><?= $i ?></a>
-        <?php endif; ?>
-    <?php endfor; ?>
-
-    <?php if ($paginate['activePage'] < $paginate['pageCount']) : ?>
-        <a href="?<?= http_build_query($get) ?>&page=<?= $paginate['activePage'] + 1 ?>">&raquo;</a>
-    <?php endif; ?>
-    <br><br>
-
     <div id="data-table">
+
+        <!-- Clear Search button -->
+        <?php if (isset($_GET['keyword'])) : ?>
+            <br>
+            <p style="display: inline;">showing results for <i>'<?= $_GET['keyword'] ?>''</i>. </p>
+            <a href="index.php">Clear search</a>
+        <?php endif; ?>
+
+        <br><br>
+
+        <!-- Pagination -->
+        <?php if ($paginate['activePage'] > 1) : ?>
+            <a href="?<?= http_build_query($get) ?>&page=<?= $paginate['activePage'] - 1 ?>">&laquo;</a>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $paginate['pageCount']; $i++) :  ?>
+            <?php if ($i == $paginate['activePage']) : ?>
+                <a href="?<?= http_build_query($get) ?>&page=<?= $i ?>"><b><?= $i ?></b></a>
+            <?php else : ?>
+                <a href="?<?= http_build_query($get) ?>&page=<?= $i ?>"><?= $i ?></a>
+            <?php endif; ?>
+        <?php endfor; ?>
+
+        <?php if ($paginate['activePage'] < $paginate['pageCount']) : ?>
+            <a href="?<?= http_build_query($get) ?>&page=<?= $paginate['activePage'] + 1 ?>">&raquo;</a>
+        <?php endif; ?>
+        <br><br>
+
         <table border="1" cellpadding="10" cellspacing="0">
             <tr>
                 <th>No.</th>
@@ -133,7 +134,7 @@ $mahasiswa = fetchAll($keyword);
         </table>
     </div>
 
-
+    <!-- Javascript -->
     <script src="js/script.js"></script>
 </body>
 

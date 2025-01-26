@@ -25,15 +25,33 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
+// base query
 $keyword = "SELECT * FROM mahasiswa";
 
-if (isset($_POST['search'])) {
-    $keyword = search($_POST['keyword']);
+// search $_GET
+$get = $_GET;
+unset($get['page']);
+
+$search = '';
+if (isset($_GET['keyword'])) {
+    $search = search($_GET['keyword']);
 }
+$keyword = $keyword . ' ' . $search;
+
+if (isset($_GET['clear'])) {
+    $_GET = [];
+}
+
+// TODO: coba pagination menggunakan method post
+// Pagination
+$paginate = paginate($keyword);
+
+$keyword = $keyword . ' ' . $paginate['keyword'];
 
 $mahasiswa = fetchAll($keyword);
 
 ?>
+
 <!-- TODO: Redesign UI -->
 <!DOCTYPE html>
 <html lang="en">
@@ -53,11 +71,36 @@ $mahasiswa = fetchAll($keyword);
     <a href="insert.php">Tambah Data Mahasiswa</a>
     <br><br>
 
-    <form action="" method="post">
+    <form action="" method="get">
         <input type="text" name="keyword" size="45" placeholder="search data..." autofocus>
-        <button type="submit" name="search">Search</button>
+        <button type="submit">Search</button>
     </form>
-    <br>
+
+    <?php if (isset($_GET['keyword'])) : ?>
+        <br>
+        <p style="display: inline;">showing results for <i>'<?= $_GET['keyword'] ?>''</i>. </p>
+        <a href="index.php">Clear search</a>
+    <?php endif; ?>
+
+    <br><br>
+
+    <!-- Pagination -->
+    <?php if ($paginate['activePage'] > 1) : ?>
+        <a href="?<?= http_build_query($get) ?>&page=<?= $paginate['activePage'] - 1 ?>">&laquo;</a>
+    <?php endif; ?>
+
+    <?php for ($i = 1; $i <= $paginate['pageCount']; $i++) :  ?>
+        <?php if ($i == $paginate['activePage']) : ?>
+            <a href="?<?= http_build_query($get) ?>&page=<?= $i ?>"><b><?= $i ?></b></a>
+        <?php else : ?>
+            <a href="?<?= http_build_query($get) ?>&page=<?= $i ?>"><?= $i ?></a>
+        <?php endif; ?>
+    <?php endfor; ?>
+
+    <?php if ($paginate['activePage'] < $paginate['pageCount']) : ?>
+        <a href="?<?= http_build_query($get) ?>&page=<?= $paginate['activePage'] + 1 ?>">&raquo;</a>
+    <?php endif; ?>
+    <br><br>
 
     <table border="1" cellpadding="10" cellspacing="0">
         <tr>
@@ -69,7 +112,7 @@ $mahasiswa = fetchAll($keyword);
             <th>Email</th>
             <th>Jurusan</th>
         </tr>
-        <?php $i = 1 ?>
+        <?php $i = $paginate['offset'] + 1 ?>
         <?php foreach ($mahasiswa as $mhs) : ?>
             <tr>
                 <td><?= $i ?></td>

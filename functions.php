@@ -26,13 +26,41 @@ function fetch($query)
 // Search data
 function search($keyword)
 {
-    return "SELECT * FROM mahasiswa 
-            WHERE
+    return "WHERE
             nama LIKE '%$keyword%'OR
             npm LIKE '%$keyword%' OR
             email LIKE '%$keyword%' OR
             jurusan LIKE '%$keyword%'
     ";
+}
+
+// TODO: optimasi pagination
+// pagination
+function paginate($keyword)
+{
+    // limit per halaman
+    $limit = 5;
+
+    // jumlah rows tabel mahasiswa
+    $rowCount = mysqli_num_rows(query($keyword));
+
+    // jumlah halaman
+    $pageCount = ceil($rowCount / $limit);
+
+    // active page
+    $activePage = isset($_GET['page']) ? $activePage = $_GET['page'] : $_GET['page'] = 1;
+
+    // menentukan offset
+    $offset = $activePage * $limit - $limit;
+
+    $keyword = "LIMIT $offset, $limit";
+
+    return [
+        'activePage' => $activePage,
+        'pageCount' => $pageCount,
+        'offset' => $offset,
+        'keyword' => $keyword
+    ];
 }
 
 // upload file gambar

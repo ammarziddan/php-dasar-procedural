@@ -1,7 +1,10 @@
 <?php
+// konfigurasi environment
+require 'env.php';
+
 // TODO: coba koneksi ke database menggunakan PDO
 // Koneksi ke database
-$conn = mysqli_connect('localhost', 'root', '', 'php-dasar');
+$conn = mysqli_connect($hostname, $db_user, $db_password, $db_name);
 
 // query to database
 function query($query)

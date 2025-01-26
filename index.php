@@ -72,10 +72,11 @@ $mahasiswa = fetchAll($keyword);
     <br><br>
 
     <form action="" method="get">
-        <input type="text" name="keyword" size="45" placeholder="search data..." autofocus>
-        <button type="submit">Search</button>
+        <input id="keyword" type="text" name="keyword" size="45" placeholder="search data..." autofocus>
+        <button type="submit" id="search-btn">Search</button>
     </form>
 
+    <!-- Clear Search button -->
     <?php if (isset($_GET['keyword'])) : ?>
         <br>
         <p style="display: inline;">showing results for <i>'<?= $_GET['keyword'] ?>''</i>. </p>
@@ -102,34 +103,38 @@ $mahasiswa = fetchAll($keyword);
     <?php endif; ?>
     <br><br>
 
-    <table border="1" cellpadding="10" cellspacing="0">
-        <tr>
-            <th>No.</th>
-            <th>Aksi</th>
-            <th>Gambar</th>
-            <th>NPM</th>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Jurusan</th>
-        </tr>
-        <?php $i = $paginate['offset'] + 1 ?>
-        <?php foreach ($mahasiswa as $mhs) : ?>
+    <div id="data-table">
+        <table border="1" cellpadding="10" cellspacing="0">
             <tr>
-                <td><?= $i ?></td>
-                <td>
-                    <a href="update.php?id=<?= $mhs['id'] ?>">edit</a> |
-                    <a href="delete.php?id=<?= $mhs['id'] ?>" onclick="return confirm('yakin ingin menghapus data <?= $mhs['nama'] ?>?')">hapus</a>
-                </td>
-                <td><img src="img/<?= $mhs['gambar'] ?>" alt="<?= $mhs['gambar'] ?>" width="80"></td>
-                <td><?= $mhs['npm'] ?></td>
-                <td><?= $mhs['nama'] ?></td>
-                <td><?= $mhs['email'] ?></td>
-                <td><?= $mhs['jurusan'] ?></td>
+                <th>No.</th>
+                <th>Aksi</th>
+                <th>Gambar</th>
+                <th>NPM</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Jurusan</th>
             </tr>
-            <?php $i++ ?>
-        <?php endforeach; ?>
-    </table>
+            <?php $i = $paginate['offset'] + 1 ?>
+            <?php foreach ($mahasiswa as $mhs) : ?>
+                <tr>
+                    <td><?= $i ?></td>
+                    <td>
+                        <a href="update.php?id=<?= $mhs['id'] ?>">edit</a> |
+                        <a href="delete.php?id=<?= $mhs['id'] ?>" onclick="return confirm('yakin ingin menghapus data <?= $mhs['nama'] ?>?')">hapus</a>
+                    </td>
+                    <td><img src="img/<?= $mhs['gambar'] ?>" alt="<?= $mhs['gambar'] ?>" width="80"></td>
+                    <td><?= $mhs['npm'] ?></td>
+                    <td><?= $mhs['nama'] ?></td>
+                    <td><?= $mhs['email'] ?></td>
+                    <td><?= $mhs['jurusan'] ?></td>
+                </tr>
+                <?php $i++ ?>
+            <?php endforeach; ?>
+        </table>
+    </div>
 
+
+    <script src="js/script.js"></script>
 </body>
 
 </html>

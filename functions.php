@@ -69,7 +69,6 @@ function paginate($keyword)
 // upload file gambar
 function upload()
 {
-    $fileName = $_FILES['gambar']['name'];
     $size = $_FILES['gambar']['size'];
     $error = $_FILES['gambar']['error'];
     $tmpName = $_FILES['gambar']['tmp_name'];
@@ -142,13 +141,19 @@ function insert($data)
 
 function destroy($id)
 {
+    // get image filename
+    $getImg = "SELECT gambar FROM mahasiswa WHERE id=$id";
+    $imgName = fetch($getImg)['gambar'];
+
+    // remove old image
+    unlink("img/$imgName");
+
     $query = "DELETE FROM mahasiswa WHERE id=$id";
     return query($query);
 }
 
 function update($id, $data)
 {
-    // TODO: jika gambar diganti, hapus file gambar yang lama
     $id = $id;
     $nama = htmlspecialchars($data['nama']);
     $npm = htmlspecialchars($data['npm']);
@@ -158,6 +163,11 @@ function update($id, $data)
 
     // cek apakah ada gambar baru
     if ($_FILES['gambar']['error'] === 0) {
+        // remove old image
+        if (file_exists("img/$gambar")) {
+            unlink("img/$gambar");
+        }
+
         $gambar = upload();
     }
 

@@ -72,64 +72,70 @@ $mahasiswa = fetchAll($keyword);
     <br><br>
 
     <form action="" method="get">
-        <input type="text" name="keyword" size="45" placeholder="search data..." autofocus>
-        <button type="submit">Search</button>
+        <input id="keyword" type="text" name="keyword" size="45" placeholder="search data..." autofocus>
+        <button type="submit" id="search-btn">Search</button>
     </form>
 
-    <?php if (isset($_GET['keyword'])) : ?>
-        <br>
-        <p style="display: inline;">showing results for <i>'<?= $_GET['keyword'] ?>''</i>. </p>
-        <a href="index.php">Clear search</a>
-    <?php endif; ?>
+    <div id="data-table">
 
-    <br><br>
-
-    <!-- Pagination -->
-    <?php if ($paginate['activePage'] > 1) : ?>
-        <a href="?<?= http_build_query($get) ?>&page=<?= $paginate['activePage'] - 1 ?>">&laquo;</a>
-    <?php endif; ?>
-
-    <?php for ($i = 1; $i <= $paginate['pageCount']; $i++) :  ?>
-        <?php if ($i == $paginate['activePage']) : ?>
-            <a href="?<?= http_build_query($get) ?>&page=<?= $i ?>"><b><?= $i ?></b></a>
-        <?php else : ?>
-            <a href="?<?= http_build_query($get) ?>&page=<?= $i ?>"><?= $i ?></a>
+        <!-- Clear Search button -->
+        <?php if (isset($_GET['keyword'])) : ?>
+            <br>
+            <p style="display: inline;">showing results for <i>'<?= $_GET['keyword'] ?>''</i>. </p>
+            <a href="index.php">Clear search</a>
         <?php endif; ?>
-    <?php endfor; ?>
 
-    <?php if ($paginate['activePage'] < $paginate['pageCount']) : ?>
-        <a href="?<?= http_build_query($get) ?>&page=<?= $paginate['activePage'] + 1 ?>">&raquo;</a>
-    <?php endif; ?>
-    <br><br>
+        <br><br>
 
-    <table border="1" cellpadding="10" cellspacing="0">
-        <tr>
-            <th>No.</th>
-            <th>Aksi</th>
-            <th>Gambar</th>
-            <th>NPM</th>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Jurusan</th>
-        </tr>
-        <?php $i = $paginate['offset'] + 1 ?>
-        <?php foreach ($mahasiswa as $mhs) : ?>
+        <!-- Pagination -->
+        <?php if ($paginate['activePage'] > 1) : ?>
+            <a href="?<?= http_build_query($get) ?>&page=<?= $paginate['activePage'] - 1 ?>">&laquo;</a>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $paginate['pageCount']; $i++) :  ?>
+            <?php if ($i == $paginate['activePage']) : ?>
+                <a href="?<?= http_build_query($get) ?>&page=<?= $i ?>"><b><?= $i ?></b></a>
+            <?php else : ?>
+                <a href="?<?= http_build_query($get) ?>&page=<?= $i ?>"><?= $i ?></a>
+            <?php endif; ?>
+        <?php endfor; ?>
+
+        <?php if ($paginate['activePage'] < $paginate['pageCount']) : ?>
+            <a href="?<?= http_build_query($get) ?>&page=<?= $paginate['activePage'] + 1 ?>">&raquo;</a>
+        <?php endif; ?>
+        <br><br>
+
+        <table border="1" cellpadding="10" cellspacing="0">
             <tr>
-                <td><?= $i ?></td>
-                <td>
-                    <a href="update.php?id=<?= $mhs['id'] ?>">edit</a> |
-                    <a href="delete.php?id=<?= $mhs['id'] ?>" onclick="return confirm('yakin ingin menghapus data <?= $mhs['nama'] ?>?')">hapus</a>
-                </td>
-                <td><img src="img/<?= $mhs['gambar'] ?>" alt="<?= $mhs['gambar'] ?>" width="80"></td>
-                <td><?= $mhs['npm'] ?></td>
-                <td><?= $mhs['nama'] ?></td>
-                <td><?= $mhs['email'] ?></td>
-                <td><?= $mhs['jurusan'] ?></td>
+                <th>No.</th>
+                <th>Aksi</th>
+                <th>Gambar</th>
+                <th>NPM</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Jurusan</th>
             </tr>
-            <?php $i++ ?>
-        <?php endforeach; ?>
-    </table>
+            <?php $i = $paginate['offset'] + 1 ?>
+            <?php foreach ($mahasiswa as $mhs) : ?>
+                <tr>
+                    <td><?= $i ?></td>
+                    <td>
+                        <a href="update.php?id=<?= $mhs['id'] ?>">edit</a> |
+                        <a href="delete.php?id=<?= $mhs['id'] ?>" onclick="return confirm('yakin ingin menghapus data <?= $mhs['nama'] ?>?')">hapus</a>
+                    </td>
+                    <td><img src="img/<?= $mhs['gambar'] ?>" alt="<?= $mhs['gambar'] ?>" width="80"></td>
+                    <td><?= $mhs['npm'] ?></td>
+                    <td><?= $mhs['nama'] ?></td>
+                    <td><?= $mhs['email'] ?></td>
+                    <td><?= $mhs['jurusan'] ?></td>
+                </tr>
+                <?php $i++ ?>
+            <?php endforeach; ?>
+        </table>
+    </div>
 
+    <!-- Javascript -->
+    <script src="js/script.js"></script>
 </body>
 
 </html>

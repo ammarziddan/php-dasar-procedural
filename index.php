@@ -42,7 +42,6 @@ if (isset($_GET['clear'])) {
     $_GET = [];
 }
 
-// TODO: coba pagination menggunakan method post
 // Pagination
 $paginate = paginate($keyword);
 
@@ -64,7 +63,7 @@ $mahasiswa = fetchAll($keyword);
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <!-- Javascript -->
     <script src="js/script.js"></script>
-    <!-- TODO: Perbaiki posisi img-loader -->
+    <!-- TODO: Perbaiki posisi img-loader (Redesign UI) -->
     <style>
         .search-form {
             display: flex;

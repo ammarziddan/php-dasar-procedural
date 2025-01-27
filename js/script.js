@@ -1,23 +1,20 @@
-// Ambil elemen keyword, search-btn, data-table
-const keyword = document.getElementById("keyword");
-const searchBtn = document.getElementById("search-btn");
-const dataTable = document.getElementById("data-table");
+$(function () {
 
-// tambahkan event ketika input diisi
-keyword.addEventListener("keypress", function () {
+    // membuat event ketika keyword ditulis
+    $('#keyword').on('keyup', function () {
+        // munculkan icon loader
+        $('.img-loader').show();
 
-    // buat object ajax
-    const xhr = new XMLHttpRequest();
+        // // ajax menggunakan load
+        // $('#data-table').load('ajax/mahasiswa.php?keyword=' + $('#keyword').val());
 
-    // cek kesiapan ajax
-    xhr.onreadystatechange = function () {
-        if(xhr.readyState == 4 && xhr.status == 200) {
-            dataTable.innerHTML = xhr.responseText;
-        }
-    }
+        // menggunakan $.get()
+        $.get('ajax/mahasiswa.php?keyword=' + $('#keyword').val(), function(data) {
 
-    // eksekusi ajax
-    xhr.open('GET', 'ajax/mahasiswa.php?keyword=' + keyword.value, true);
-    xhr.send();
+            $('#data-table').html(data);
 
-});
+            // hilangkan icon loader
+            $('.img-loader').hide();
+        })
+    })
+})

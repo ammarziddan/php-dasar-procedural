@@ -60,6 +60,23 @@ $mahasiswa = fetchAll($keyword);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Mahasiswa</title>
+    <!-- JQuery -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- Javascript -->
+    <script src="js/script.js"></script>
+    <!-- TODO: Perbaiki posisi img-loader -->
+    <style>
+        .search-form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .img-loader {
+            width: 25px;
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -71,9 +88,11 @@ $mahasiswa = fetchAll($keyword);
     <a href="insert.php">Tambah Data Mahasiswa</a>
     <br><br>
 
-    <form action="" method="get">
+    <form action="" method="get" class="search-form">
         <input id="keyword" type="text" name="keyword" size="45" placeholder="search data..." autofocus>
         <button type="submit" id="search-btn">Search</button>
+
+        <img src="img/loader.gif" class="img-loader">
     </form>
 
     <div id="data-table">
@@ -134,8 +153,7 @@ $mahasiswa = fetchAll($keyword);
         </table>
     </div>
 
-    <!-- Javascript -->
-    <script src="js/script.js"></script>
+
 </body>
 
 </html>

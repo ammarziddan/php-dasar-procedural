@@ -29,39 +29,41 @@ if (isset($_POST['register'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
+    <title>Sign Up</title>
 
-    <style>
-        label {
-            display: block;
-        }
-    </style>
+    <!-- style.css -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <!-- TODO: Redesign UI -->
-    <h1>Halaman Registrasi</h1>
     <!-- TODO: tambahkan email verification -->
-    <form action="" method="post">
-        <ul>
-            <li>
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-            </li>
-            <li>
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </li>
-            <li>
-                <label for="confirmPass">Confirm Your Password</label>
-                <input type="password" id="confirmPass" name="confirmPass" required>
-            </li>
-            <li>
-                <button type="submit" name="register">Register</button>
-                <p>sudah punya akun? klik <a href="login.php">disini</a></p>
-            </li>
-        </ul>
-    </form>
+    <div class="login">
+        <div class="login-header">
+            <h1 class="login-title">Sign Up</h1>
+        </div>
+        <div class="login-content">
+            <form action="" method="post">
+                <ul class="form-list">
+                    <li>
+                        <label class="login-label" for="username">Username</label>
+                        <input class="login-input-text" type="text" id="username" name="username" required>
+                    </li>
+                    <li>
+                        <label class="login-label" for="password">Password</label>
+                        <input class="login-input-text" type="password" id="password" name="password" required>
+                    </li>
+                    <li>
+                        <label class="login-label" for="confirmPass">Confirm Your Password</label>
+                        <input class="login-input-text" type="password" id="confirmPass" name="confirmPass" required>
+                    </li>
+                    <li>
+                        <button class="login-btn" type="submit" name="register">Register</button>
+                    </li>
+                    <p>sudah punya akun? klik <a href="login.php">disini</a></p>
+                </ul>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -1,4 +1,5 @@
 <?php
+
 // konfigurasi environment
 require 'env.php';
 
@@ -108,6 +109,10 @@ function upload()
 
     $newFileName = bin2hex(random_bytes(16)) . '.' . $extension;
 
+    // cek apakah ada direktori img/
+    if (!is_dir('img/')) {
+        mkdir('./img/');
+    }
     // upload file ke direktori
     move_uploaded_file($tmpName, 'img/' . $newFileName);
 
